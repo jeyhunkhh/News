@@ -1,4 +1,3 @@
-import { Nav } from "react-bootstrap";
 import News from "../Layout/News";
 import Paginate from "../Layout/Pagination";
 import "./index.scss";
