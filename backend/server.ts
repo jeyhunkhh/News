@@ -20,6 +20,7 @@ db.once("open", () => console.log("db connected"));
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 const port = 8000;
 
