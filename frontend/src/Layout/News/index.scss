@@ -1,0 +1,17 @@
+@import "../../../assets/variables";
+
+.new-item {
+  background-color: $black-color;
+  img {
+    height: 230px;
+    object-fit: cover;
+  }
+  .title {
+    color: $white-color;
+    height: 100px;
+  }
+
+  .time {
+    color: $white-color;
+  }
+}

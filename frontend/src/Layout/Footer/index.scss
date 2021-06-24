@@ -1,0 +1,42 @@
+@import "../../../assets/variables";
+
+.footer {
+  background-color: $blue-color;
+  padding: 40px 0px;
+  .page-list {
+    display: inline-flex;
+    li {
+      a {
+        color: $white-color;
+        font-weight: 500;
+        font-size: 20px;
+        margin: 0px 15px;
+      }
+    }
+  }
+  .sosial {
+    ul {
+      display: inline-flex;
+      li {
+        a {
+          margin: 10px;
+          background-color: $gray-color;
+          height: 50px;
+          width: 50px;
+          line-height: 50px;
+          display: inline-block;
+          border-radius: 50%;
+          color: $white-color;
+        }
+      }
+    }
+  }
+  .app-store {
+    img {
+      margin: 5px;
+    }
+  }
+  .logo {
+    color: $white-color;
+  }
+}
