@@ -78,38 +78,58 @@ NewsRouter.get("/:id", async (req, res) => {
 });
 
 // Create
-NewsRouter.post("/", upload.single("photo"), async function (req, res) {
-  const reqPayload: INews = { ...req.body, photo: req.file?.path };
-  const news = new News(reqPayload);
+NewsRouter.post(
+  "/",
+  requireAuth,
+  upload.single("photo"),
+  async function (req, res) {
+    const reqPayload: INews = { ...req.body, photo: req.file?.path };
+    const news = new News(reqPayload);
+    try {
+      const insertedNews = await news.save();
+      res.status(201).json(insertedNews);
+    } catch (error) {
+      res.status(422).json({ message: error.message });
+    }
 
-  try {
-    const insertedNews = await news.save();
-    res.status(201).json(insertedNews);
-  } catch (error) {
-    res.status(422).json({ message: error.message });
+    res.sendStatus(201);
   }
-
-  res.sendStatus(201);
-});
+);
 
 // Update
-NewsRouter.patch("/:id", requireAuth, async (req, res) => {
-  const { id } = req.params;
-  try {
-    let news = await News.findById(id);
-    if (!news) {
-      res.status(404).json({ message: "Not found" });
-    } else {
-      await News.findByIdAndUpdate(id, req.body, {
-        useFindAndModify: true,
-      });
-      news = await News.findById(id);
-      res.json(news);
+NewsRouter.patch(
+  "/:id",
+  requireAuth,
+  upload.single("photo"),
+  async (req, res) => {
+    const { id } = req.params;
+    try {
+      let news = await News.findById(id);
+      if (!news) {
+        res.status(404).json({ message: "Not found" });
+      } else {
+        if (req.file !== undefined) {
+          await News.findByIdAndUpdate(
+            id,
+            { ...req.body, photo: req.file?.path },
+            {
+              useFindAndModify: true,
+            }
+          );
+        } else {
+          await News.findByIdAndUpdate(id, req.body, {
+            useFindAndModify: true,
+          });
+        }
+
+        news = await News.findById(id);
+        res.json(news);
+      }
+    } catch (err) {
+      res.status(500).json({ message: err.message });
     }
-  } catch (err) {
-    res.status(500).json({ message: err.message });
   }
-});
+);
 
 // Delete
 NewsRouter.delete("/:id", requireAuth, async function (req, res) {
