@@ -1,5 +1,4 @@
-import News from "../Layout/News";
-import Paginate from "../Layout/Pagination";
+import News from "../News/components";
 import Advertisement from "./Advertisement";
 import CovidCard from "./Covid/CovidCard";
 import { IntroSlider } from "./IntroSlider";
@@ -23,24 +22,7 @@ const Home = () => {
             <Advertisement />
           </div>
         </div>
-        <div className="all-news">
-          <div className="row">
-            <div className="col-lg-4 mb-3">
-              <News />
-            </div>
-            <div className="col-lg-4 mb-3">
-              <News />
-            </div>
-            <div className="col-lg-4 mb-3">
-              <News />
-            </div>
-          </div>
-        </div>
-        <div className="row my-5 justify-content-center">
-          <div className="col-lg-6">
-            <Paginate />
-          </div>
-        </div>
+        <News />
       </div>
     </>
   );

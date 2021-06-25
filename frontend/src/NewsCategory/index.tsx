@@ -1,5 +1,4 @@
-import News from "../Layout/News";
-import Paginate from "../Layout/Pagination";
+import News from "../News/components";
 import "./index.scss";
 
 const NewsCatagory = () => {
@@ -15,11 +14,6 @@ const NewsCatagory = () => {
         </div>
         <div className="col-lg-4">
           <News />
-        </div>
-      </div>
-      <div className="row my-5 justify-content-center">
-        <div className="col-lg-6">
-          <Paginate />
         </div>
       </div>
     </div>
