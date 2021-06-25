@@ -9,5 +9,9 @@ class NewsService extends HttpClient {
   async getNews() {
     return this.get("news");
   }
+
+  async getNewsById(id: string) {
+    return this.get(`news/${id}`);
+  }
 }
 export const newsService = new NewsService();

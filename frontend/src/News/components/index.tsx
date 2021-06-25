@@ -1,20 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { IAppState } from "../../redux/interface";
-import { getNews } from "../actions";
 import "./index.scss";
 import NewsItem from "./NewsItem";
 
 const News = () => {
-  const dispatch = useDispatch();
   const [newsCount, setNewsCount] = useState(6);
   const news = useSelector((state: IAppState) => state.news);
   const { data } = news;
-
-  useEffect(() => {
-    dispatch(getNews());
-  }, [dispatch]);
 
   const computedNews = useMemo(() => {
     let computed = data;
@@ -43,7 +37,6 @@ const News = () => {
       <div className="text-center">
         {data !== null && newsCount < data.length && (
           <Button onClick={handleAddShow} variant="success">
-            {console.log(newsCount)}
             Show More
           </Button>
         )}

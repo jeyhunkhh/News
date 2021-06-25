@@ -56,7 +56,7 @@ NewsRouter.use(cors());
 // Get
 NewsRouter.get("/", async (req, res) => {
   try {
-    const news = await News.find();
+    const news = await News.find().sort({ createdAt: -1 });
     res.status(200).json(news);
   } catch (err) {
     res.status(500).json({ message: err.message });

@@ -5,8 +5,8 @@ export interface INews {
   isSlider: boolean;
   categoryId: string;
   photo: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   __v: number;
 }
 

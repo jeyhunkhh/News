@@ -2,7 +2,7 @@ import { NEWS_ACTIONS } from "./consts";
 import { newsService } from "../service";
 import { Dispatch } from "redux";
 
-export const getNews = () => async (dispatch: Dispatch) => {
+export const getNews = () => (dispatch: Dispatch) => {
   dispatch({
     type: `${NEWS_ACTIONS.GET_NEWS}_PENDING`,
   });

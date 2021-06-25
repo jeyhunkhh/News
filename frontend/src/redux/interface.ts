@@ -5,3 +5,7 @@ export interface IAppState {
   user: IAuthInitialState;
   news: INewsInitialState;
 }
+
+export interface IParam {
+  id: string;
+}

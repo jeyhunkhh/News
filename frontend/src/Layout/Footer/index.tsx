@@ -8,31 +8,40 @@ const Footer = () => {
         <div className="col-lg-6 text-center">
           <ul className="page-list">
             <li>
-              <a href="#about">About</a>
+              <Link to="#about">About</Link>
             </li>
             <li>
-              <a href="#about">Contact Us</a>
+              <Link to="#about">Contact Us</Link>
             </li>
           </ul>
           <div className="sosial m-4">
             <ul>
               <li>
-                <Link to="https://www.facebook.com/">
+                <Link
+                  to={{ pathname: "https://www.facebook.com/" }}
+                  target="_blank"
+                >
                   <i className="fab fa-facebook-f"></i>
                 </Link>
               </li>
               <li>
-                <Link to="https://www.instagram.com/">
+                <Link
+                  to={{ pathname: "https://www.instagram.com/" }}
+                  target="_blank"
+                >
                   <i className="fab fa-instagram"></i>
                 </Link>
               </li>
               <li>
-                <Link to="https://twitter.com/">
+                <Link to={{ pathname: "https://twitter.com/" }} target="_blank">
                   <i className="fab fa-twitter"></i>
                 </Link>
               </li>
               <li>
-                <Link to="https://www.youtube.com/">
+                <Link
+                  to={{ pathname: "https://www.youtube.com/" }}
+                  target="_blank"
+                >
                   <i className="fab fa-youtube"></i>
                 </Link>
               </li>

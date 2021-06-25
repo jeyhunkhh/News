@@ -2,13 +2,22 @@
 
 .new-item {
   background-color: $black-color;
+  overflow: hidden;
   img {
     height: 230px;
     object-fit: cover;
+    transition: transform 0.5s;
+
+    &:hover {
+      transform: scale(1.05);
+      transition: transform 0.5s;
+    }
   }
   .title {
-    color: $white-color;
     height: 100px;
+    a {
+      color: $white-color;
+    }
   }
 
   .time {

@@ -52,7 +52,7 @@ CategoryRouter.get("/:id", async (req, res) => {
     if (!categories) {
       res.status(404).json({ message: "Not found" });
     } else {
-      const news = await News.find({ categoryId: id });
+      const news = await News.find({ categoryId: id }).sort({ createdAt: -1 });
       const data = {
         categories,
         news,
