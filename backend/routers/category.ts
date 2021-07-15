@@ -3,34 +3,9 @@ import cors from "cors";
 import Category from "../models/categotyModel";
 import { ICategory } from "../interface";
 import News from "../models/newsModels";
-import dotenv from "dotenv";
-import { verify } from "jsonwebtoken";
-
-dotenv.config();
-const JWT_SECRET = process.env.JWT_SECRET_KEY || "";
+import { requireAuth } from "../helpers/verifyToken";
 
 export const CategoryRouter = express.Router();
-
-async function requireAuth(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token) {
-    try {
-      const userPayload = await verify(token, JWT_SECRET);
-      if (userPayload) {
-        next();
-      }
-    } catch (error) {
-      res.status(401).json({
-        errors: error.message,
-      });
-    }
-  } else {
-    res.status(401).json({
-      errors: ["not allowed"],
-    });
-  }
-}
 
 CategoryRouter.use(cors());
 

@@ -2,29 +2,20 @@ import { createStore, applyMiddleware, combineReducers, Store } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { loginReducer } from "../Auth/reducer";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage";
 import { newsReducer } from "../News/reducer";
-
-const persistConfig = {
-  key: "root",
-  storage,
-};
+import { readlistReducer } from "../ReadList/reducer";
 
 export const rootReducer = combineReducers({
   user: loginReducer,
   news: newsReducer,
+  readlist: readlistReducer,
 });
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const middleware = [thunk];
 
 const store: Store = createStore(
-  persistedReducer,
+  rootReducer,
   composeWithDevTools(applyMiddleware(...middleware))
 );
-
-export const persistor = persistStore(store);
 
 export default store;

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Base_Url } from "../../httpClient/consts";
 import { IAppState } from "../../redux/interface";
 import "./index.scss";
 
@@ -27,7 +26,7 @@ export const IntroSlider = () => {
             <Carousel.Item key={item._id}>
               <img
                 className="d-block w-100"
-                src={`${Base_Url}/${item.photo}`}
+                src={item.photo}
                 alt={item.title}
               />
               <Carousel.Caption className="content">

@@ -19,6 +19,7 @@ export interface IUser {
   fullname: string;
   password: string;
   role: string;
+  news: INews[];
 }
 
 export interface IAuthPayload {

@@ -20,14 +20,17 @@ db.once("open", () => console.log("db connected"));
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/uploads", express.static("uploads"));
 
-const port = 8000;
+app.get("/", (req, res) => {
+  res.json("Hello News Api...");
+});
+
+const PORT: string | number = process.env.PORT || 8000;
 
 ROUTES.forEach(({ path, router }) => {
   app.use(path, router);
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
 });

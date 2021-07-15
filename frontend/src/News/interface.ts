@@ -12,6 +12,14 @@ export interface INews {
 
 export interface INewsInitialState {
   status: string;
-  data: INews[] | null;
+  data: INews[];
   errors: [];
+}
+
+export interface INewsForm {
+  title: string;
+  content: string;
+  isSlider: boolean;
+  categoryId: string;
+  photo: string;
 }

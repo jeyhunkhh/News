@@ -1,9 +1,11 @@
 import { Router, Response } from "express";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import jwt_decode from "jwt-decode";
 import * as yup from "yup";
 import { IAuthPayload, IUser } from "../interface";
 import UserModel from "../models/userModel";
+import { requireAuth } from "../helpers/verifyToken";
 
 dotenv.config();
 
@@ -41,10 +43,10 @@ AuthRouter.post("/register", async (req, res) => {
         role: newUser.role,
       });
     } catch (error) {
-      res.status(422).json({ errors: [error.message] });
+      res.status(422).json({ errors: error });
     }
-  } catch (err) {
-    res.status(422).json({ errors: err.errors });
+  } catch (error) {
+    res.status(422).json({ errors: error });
   }
 });
 
@@ -72,10 +74,29 @@ AuthRouter.post("/login", async (req, res) => {
         },
       });
     } catch (error) {
-      res.status(422).json({ errors: [error.message] });
+      res.status(422).json({ message: "Incorrect email or password" });
     }
   } catch (err) {
     console.error(err);
-    res.status(422).json({ errors: err.errors });
+    res.status(422).json({ message: "Incorrect email or password" });
+  }
+});
+
+AuthRouter.get("/verify-user", requireAuth, async (req, res) => {
+  const authToken = req.headers["authorization"];
+
+  if (!authToken) return res.status(401);
+  const user: any = jwt_decode(authToken);
+  const userInfo = await UserModel.findById(user._id);
+
+  if (userInfo) {
+    res.json({
+      user: {
+        _id: userInfo._id,
+        email: userInfo.email,
+        fullname: userInfo.fullname,
+        role: userInfo.role,
+      },
+    });
   }
 });

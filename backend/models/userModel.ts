@@ -1,6 +1,7 @@
 import { Schema, model, Model, Document } from "mongoose";
 import bcrypt from "bcrypt";
 import { IUserDocument, IUserModel } from "../interface";
+import mongoose from "mongoose";
 
 const userSchema = new Schema(
   {
@@ -21,6 +22,12 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    news: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "News",
+      },
+    ],
   },
   {
     timestamps: true,

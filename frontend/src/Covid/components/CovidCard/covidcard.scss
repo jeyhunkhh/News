@@ -1,0 +1,18 @@
+@import "../../../../assets/variables";
+
+.covid-card {
+  background: #009fff;
+  background: -webkit-linear-gradient(to right, #ec2f4b, #009fff);
+  background: linear-gradient(to right, #ec2f4b, #009fff);
+  .covid-img {
+    border-radius: 20px;
+    padding: 10px;
+  }
+  .title {
+    color: $white-color;
+  }
+  .content {
+    color: $white-color;
+    background-color: $black-color;
+  }
+}

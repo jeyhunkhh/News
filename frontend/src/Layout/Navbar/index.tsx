@@ -1,12 +1,5 @@
 import "./index.scss";
-import {
-  Button,
-  Container,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-} from "react-bootstrap";
+import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import { IAppState } from "../../redux/interface";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import { logout } from "../../Auth/actions";
 import { categoriesService } from "../../NewsCategory/service";
 import { ICatogory } from "./interface";
+import Search from "../Search";
 
 const HeaderNav = () => {
   const user = useSelector((state: IAppState) => state.user);
@@ -34,7 +28,7 @@ const HeaderNav = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand className="mr-5" href="#home">
+        <Navbar.Brand className="mr-5">
           <Link to="/" className="nav-item">
             <h2>Web_News</h2>
           </Link>
@@ -56,12 +50,12 @@ const HeaderNav = () => {
                 </Link>
               ))}
           </Nav>
-          <Form inline>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          </Form>
+          <Search />
           {user.data !== null ? (
             <>
-              <h5 className="nav-item mx-3 mb-0">{user.data.fullname}</h5>
+              <Link to="/read-list" className="nav-item">
+                <h5 className=" mx-3 mb-0">{user.data.fullname}</h5>
+              </Link>
               <Button
                 onClick={handleLogout}
                 className="nav-item"

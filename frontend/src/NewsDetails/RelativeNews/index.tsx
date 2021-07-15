@@ -3,7 +3,6 @@ import { Card } from "react-bootstrap";
 import React from "react";
 import { useSelector } from "react-redux";
 import { IAppState } from "../../redux/interface";
-import { Base_Url } from "../../httpClient/consts";
 import { Link } from "react-router-dom";
 
 const RelativeNews: React.FC<{
@@ -20,7 +19,7 @@ const RelativeNews: React.FC<{
       {news.status === "SUCCESS" &&
         data?.map((item) => (
           <Card className="mb-3" key={item._id}>
-            <Card.Img variant="top" src={`${Base_Url}/${item.photo}`} />
+            <Card.Img variant="top" src={item.photo} />
             <Card.Body className="relative-content">
               <Link to={`/news/${item._id}`}>{item.title}</Link>
             </Card.Body>

@@ -3,6 +3,7 @@
 .new-item {
   background-color: $black-color;
   overflow: hidden;
+  transition: box-shadow 0.5s;
   img {
     height: 230px;
     object-fit: cover;
@@ -19,8 +20,11 @@
       color: $white-color;
     }
   }
-
   .time {
     color: $white-color;
+  }
+  &:hover {
+    box-shadow: $box-shadow;
+    transition: box-shadow 0.5s;
   }
 }

@@ -22,3 +22,11 @@ export const getNews = () => (dispatch: Dispatch) => {
       });
     });
 };
+
+export const addNews = async (newData: FormData) => {
+  await newsService.addNews(newData);
+};
+
+export const updateNews = async (updateData: FormData, id: string) => {
+  await newsService.updateNews(updateData, id);
+};

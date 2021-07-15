@@ -3,7 +3,11 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  overflow-x: hidden;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
 }
 
 ul {
@@ -11,6 +15,13 @@ ul {
   padding: 0;
   margin: 0;
 }
+
 a {
   text-decoration: none !important;
+}
+
+@media (max-width: 991.98px) {
+  .search-form {
+    margin-bottom: 18px;
+  }
 }

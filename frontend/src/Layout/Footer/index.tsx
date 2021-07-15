@@ -1,18 +1,26 @@
 import "./index.scss";
 import { Link } from "react-router-dom";
+import { IAppState } from "../../redux/interface";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  const user = useSelector((state: IAppState) => state.user);
   return (
     <div className="footer">
       <div className="row justify-content-center">
         <div className="col-lg-6 text-center">
           <ul className="page-list">
             <li>
-              <Link to="#about">About</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="#about">Contact Us</Link>
+              <Link to="/covid">Covid statistics</Link>
             </li>
+            {user.status !== "SUCCESS" && (
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            )}
           </ul>
           <div className="sosial m-4">
             <ul>

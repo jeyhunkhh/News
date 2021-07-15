@@ -1,20 +1,23 @@
 import { useEffect } from "react";
-import { Spinner } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getNews } from "../News/actions";
 import News from "../News/components";
 import { IAppState } from "../redux/interface";
-import Advertisement from "./Advertisement";
-import CovidCard from "./Covid/CovidCard";
+import CovidCard from "../Covid/components/CovidCard/CovidCard";
 import { IntroSlider } from "./IntroSlider";
+import Weather from "./Weather";
+import Loading from "../Layout/Loading";
 
 const Home = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getNews());
-  }, [dispatch]);
-
   const news = useSelector((state: IAppState) => state.news);
+  const { data } = news;
+
+  useEffect(() => {
+    if (news.status !== "SUCCESS") {
+      dispatch(getNews());
+    }
+  }, [dispatch, news.status]);
 
   return (
     <>
@@ -23,7 +26,7 @@ const Home = () => {
           <>
             <div className="intro">
               <div className="row mt-5">
-                <div className="col-lg-9">
+                <div className="col-lg-9 mb-3">
                   <IntroSlider />
                 </div>
                 <div className="col-lg-3">
@@ -31,22 +34,11 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <div className="row">
-              <div className="col-lg-12">
-                <Advertisement />
-              </div>
-            </div>
-            <News />
+            <Weather />
+            <News news={data} />
           </>
         ) : (
-          <div
-            className="d-flex justify-content-center align-items-center"
-            style={{ height: "50vh" }}
-          >
-            <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
-            </Spinner>
-          </div>
+          <Loading />
         )}
       </div>
     </>

@@ -1,63 +1,41 @@
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import cors from "cors";
 import News from "../models/newsModels";
 import { INews } from "../interface";
-import dotenv from "dotenv";
-import { verify } from "jsonwebtoken";
 import multer from "multer";
-
-dotenv.config();
-const JWT_SECRET = process.env.JWT_SECRET_KEY || "";
+import { requireAuth } from "../helpers/verifyToken";
+const { cloudinary } = require("../helpers/cloudinary");
 
 export const NewsRouter = express.Router();
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "./uploads/");
-  },
-  filename: function (req, file, cb) {
-    cb(
-      null,
-      new Date().toISOString().replace(/[\/\\:]/g, "_") + file.originalname
-    );
-  },
-});
-
 const upload = multer({
-  storage: storage,
+  storage: multer.diskStorage({}),
   limits: {
     fileSize: 1024 * 1024 * 5,
   },
 });
-
-async function requireAuth(req: Request, res: Response, next: NextFunction) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token) {
-    try {
-      const userPayload = await verify(token, JWT_SECRET);
-      if (userPayload) {
-        next();
-      }
-    } catch (error) {
-      res.status(401).json({
-        errors: error.message,
-      });
-    }
-  } else {
-    res.status(401).json({
-      errors: ["not allowed"],
-    });
-  }
-}
 
 NewsRouter.use(cors());
 
 // Get
 NewsRouter.get("/", async (req, res) => {
   try {
+    let searchQuery = req.query.searchQuery;
     const news = await News.find().sort({ createdAt: -1 });
-    res.status(200).json(news);
+    let result = news;
+
+    if (searchQuery) {
+      const searchCallBack = (newsItem: any) => {
+        return newsItem.title
+          .trim()
+          .toLowerCase()
+          .includes(searchQuery!.toString().trim().toLowerCase());
+      };
+
+      result = news.filter(searchCallBack);
+    }
+
+    res.status(200).json(result);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -83,8 +61,10 @@ NewsRouter.post(
   requireAuth,
   upload.single("photo"),
   async function (req, res) {
-    const reqPayload: INews = { ...req.body, photo: req.file?.path };
+    const result = await cloudinary.uploader.upload(req.file?.path);
+    const reqPayload: INews = { ...req.body, photo: result.url };
     const news = new News(reqPayload);
+
     try {
       const insertedNews = await news.save();
       res.status(201).json(insertedNews);
@@ -109,9 +89,10 @@ NewsRouter.patch(
         res.status(404).json({ message: "Not found" });
       } else {
         if (req.file !== undefined) {
+          const result = await cloudinary.uploader.upload(req.file?.path);
           await News.findByIdAndUpdate(
             id,
-            { ...req.body, photo: req.file?.path },
+            { ...req.body, photo: result.url },
             {
               useFindAndModify: true,
             }

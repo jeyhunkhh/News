@@ -1,6 +1,7 @@
 import { AuthRouter } from "./routers/auth";
 import { CategoryRouter } from "./routers/category";
 import { NewsRouter } from "./routers/news";
+import { UserRouter } from "./routers/user";
 
 const ROUTES = [
   {
@@ -14,6 +15,10 @@ const ROUTES = [
   {
     path: "/news",
     router: NewsRouter,
+  },
+  {
+    path: "/user",
+    router: UserRouter,
   },
 ];
 

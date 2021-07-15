@@ -1,0 +1,20 @@
+@import "../../../assets/variables";
+
+.auth-input {
+  position: relative;
+  input {
+    border: none;
+    border-bottom: 1px solid $gray-color;
+    transition: box-shadow 0.3s;
+    padding-left: 50px;
+    &:focus {
+      transition: box-shadow 0.3s;
+      box-shadow: 0 2px 0 $gray-color;
+    }
+  }
+  i {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+  }
+}

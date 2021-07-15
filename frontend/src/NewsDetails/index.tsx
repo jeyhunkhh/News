@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { Base_Url } from "../httpClient/consts";
+import Loading from "../Layout/Loading";
 import { INews } from "../News/interface";
 import { newsService } from "../News/service";
 import { IParam } from "../redux/interface";
@@ -24,7 +23,7 @@ const NewsDetail = () => {
           <div className="col-lg-9">
             <h2 className="my-4">{news?.title}</h2>
             <img
-              src={`${Base_Url}/${news?.photo}`}
+              src={news?.photo}
               alt="news-content"
               className="img-fluid mb-3"
             />
@@ -37,14 +36,7 @@ const NewsDetail = () => {
           )}
         </div>
       ) : (
-        <div
-          className="d-flex justify-content-center align-items-center"
-          style={{ height: "50vh" }}
-        >
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
-        </div>
+        <Loading />
       )}
     </div>
   );

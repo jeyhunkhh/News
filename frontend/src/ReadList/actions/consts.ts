@@ -1,0 +1,3 @@
+export enum READLIST_ACTIONS {
+  GET_READLIST = "GET_READLIST",
+}
